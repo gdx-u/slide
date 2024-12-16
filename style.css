@@ -1,5 +1,6 @@
 :root {
     --ts: 77px;
+    --fs: 48px;
 }
 
 .square {
@@ -10,7 +11,7 @@
     height: var(--ts);
     text-align: center;
     line-height: var(--ts);
-    font-size: 48px;
+    font-size: var(--fs);
     border: 1px solid black;
     user-select: none;
 }
