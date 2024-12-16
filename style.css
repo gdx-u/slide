@@ -1,0 +1,16 @@
+:root {
+    --ts: 77px;
+}
+
+.square {
+    font-family: 'Courier New', 'Lucida Sans', 'Lucida Sans MS', monospace;
+    display: block;
+    position: absolute;
+    width: var(--ts);
+    height: var(--ts);
+    text-align: center;
+    line-height: var(--ts);
+    font-size: 48px;
+    border: 1px solid black;
+    user-select: none;
+}
