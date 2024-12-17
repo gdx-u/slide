@@ -57,8 +57,8 @@ function move(sq) {
         // document.body.appendChild(square(zx, zy, sq.innerText));
         // document.body.removeChild(sq);
         sq.id = `${zx},${zy}`;
-        sq.style.left = `${zx}px`;
-        sq.style.top = `${zy}px`;
+        sq.style.left = `${(zx + 1) * (ts + 1)}px`;
+        sq.style.top = `${(zy + 1) * (ts + 1)}px`;
         zx = x;
         zy = y;
         if (is_solved() && !shuffling) window.setTimeout(() => {alert(`Solved in ${format()}!`);}, 100);
