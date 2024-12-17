@@ -4,6 +4,7 @@
 }
 
 .square {
+    transition: top 90ms ease-in-out, left 90ms ease-in-out;
     font-family: 'Courier New', 'Lucida Sans', 'Lucida Sans MS', monospace;
     display: block;
     position: absolute;
