@@ -58,7 +58,7 @@ function move(sq) {
         document.body.removeChild(sq);
         zx = x;
         zy = y;
-        if (is_solved() && !shuffling) {alert(`Solved in ${format()}!`);}
+        if (is_solved() && !shuffling) window.setTimeout(() => {alert(`Solved in ${format()}!`);}, 100);
         return true;
     }
     return false;
