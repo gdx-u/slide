@@ -54,8 +54,11 @@ function square(x, y, num) {
 function move(sq) {
     let [x, y] = sq.id.split(",").map(e => Number(e));
     if (Math.abs(x - zx) + Math.abs(y - zy) == 1) {
-        document.body.appendChild(square(zx, zy, sq.innerText));
-        document.body.removeChild(sq);
+        // document.body.appendChild(square(zx, zy, sq.innerText));
+        // document.body.removeChild(sq);
+        sq.id = `${zx},${zy}`;
+        sq.style.left = `${zx}px`;
+        sq.style.top = `${zy}px`;
         zx = x;
         zy = y;
         if (is_solved() && !shuffling) window.setTimeout(() => {alert(`Solved in ${format()}!`);}, 100);
