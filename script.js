@@ -1,7 +1,5 @@
 let ts = 384;
 
-// let order = "123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
 shuffling = true;
 
 let start, end;
@@ -9,13 +7,11 @@ let start, end;
 function format() {
     const durationMs = end - start;
 
-    // Convert duration to different units
     const milliseconds = durationMs % 1000;
     const totalSeconds = Math.floor(durationMs / 1000);
     const seconds = totalSeconds % 60;
     const minutes = Math.floor(totalSeconds / 60);
 
-    // Format the output
     if (minutes > 0) {
         return `${minutes}m${seconds}s`;
     } else if (seconds > 0) {
@@ -23,6 +19,12 @@ function format() {
     } else {
         return `${milliseconds}ms`;
     }
+}
+
+function color_el(el) {
+    let [bg, font] = color(Number(el.innerText));
+    el.style.backgroundColor = bg;
+    el.style.color = font;
 }
 
 function color(num) {
@@ -46,17 +48,14 @@ function square(x, y, num) {
     sq.onmouseover = e => {
         if (move(e.target) && !start) start = Date.now();
     }
-    sq.style.backgroundColor = color(num)[0];
-    sq.style.color = color(num)[1];
+    color_el(sq);
     return sq;
 }
 
 function move(sq) {
-    if (is_solved() && !shuffling) return false;
+    if (is_solved() && !shuffling) return;
     let [x, y] = sq.id.split(",").map(e => Number(e));
     if (Math.abs(x - zx) + Math.abs(y - zy) == 1) {
-        // document.body.appendChild(square(zx, zy, sq.innerText));
-        // document.body.removeChild(sq);
         sq.id = `${zx},${zy}`;
         sq.style.left = `${(zx + 1) * (ts + 1)}px`;
         sq.style.top = `${(zy + 1) * (ts + 1)}px`;
@@ -72,23 +71,24 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+let just_moved;
 function find_neighbours() {
     let nb = [];
     for (let [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
         let nx = zx + dx;
         let ny = zy + dy;
-        if (0 <= nx && nx < w && 0 <= ny && ny < h) nb.push([nx, ny]);
+        if (0 <= nx && nx < w && 0 <= ny && ny < h && JSON.stringify([nx, ny]) != JSON.stringify(just_moved)) nb.push([nx, ny]);
     }
     return nb;
 }
 
-async function shuffle() {
+function shuffle() {
     for (let i = 0; i < 0.5 * Math.pow(w, 4); i++) {
         let neighbours = find_neighbours();
         let els = neighbours.map(e => document.getElementById(`${e[0]},${e[1]}`));
         let to_swap = els[Math.floor(Math.random() * els.length)];
-        if (i % 500 == 0) await sleep(5);
         if (!move(to_swap)) i--;
+        else just_moved = to_swap.id.split(",").map(Number);
     }
     shuffling = false;
 }
@@ -126,3 +126,20 @@ for (let i = 0; i < w * h - 1; i++) {
 }
 
 shuffle();
+
+let hidden = false;
+document.onkeydown = (e) => {
+    if (e.key.toLowerCase() === "b") {
+        hidden = !hidden;
+        if (hidden) {
+            for (let sq of document.querySelectorAll(".square")) {
+                sq.style.color = "transparent";
+                sq.style.backgroundColor = "black";
+            }
+        } else {
+            for (let sq of document.querySelectorAll(".square")) {
+                color_el (sq);
+            }
+        }
+    }
+}
