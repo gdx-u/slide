@@ -9,6 +9,6 @@
 </head>
 <body>
     <script src="script.js" defer></script>
-    <input type="number" name="num" id="size" onchange="localStorage.setItem('size', this.value)">
+    <input type="number" name="num" id="size" onchange="localStorage.setItem('size', Math.min(Math.max(2, this.value), 30)); location.reload();">
 </body>
 </html>
