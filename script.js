@@ -52,7 +52,7 @@ function square(x, y, num) {
 }
 
 function move(sq) {
-    if (is_solved && !shuffling) return false;
+    if (is_solved() && !shuffling) return false;
     let [x, y] = sq.id.split(",").map(e => Number(e));
     if (Math.abs(x - zx) + Math.abs(y - zy) == 1) {
         // document.body.appendChild(square(zx, zy, sq.innerText));
