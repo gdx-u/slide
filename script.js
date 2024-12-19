@@ -112,7 +112,8 @@ let h = w;
 let max = String(w * h - 1).length;
 
 let my = h + 2;
-let mts = Math.floor(window.innerHeight / my);
+let mx = w + 2;
+let mts = Math.min(Math.floor(window.innerHeight / my), Math.floor(window.innerWidth / mx));
 
 document.documentElement.style.setProperty('--ts', `${mts}px`);
 document.documentElement.style.setProperty('--fs', `${mts / max}px`);
