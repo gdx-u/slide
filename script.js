@@ -82,13 +82,14 @@ function find_neighbours() {
     return nb;
 }
 
-function shuffle() {
+async function shuffle() {
     for (let i = 0; i < 0.5 * Math.pow(w, 4); i++) {
         let neighbours = find_neighbours();
         let els = neighbours.map(e => document.getElementById(`${e[0]},${e[1]}`));
         let to_swap = els[Math.floor(Math.random() * els.length)];
         if (!move(to_swap)) i--;
         else just_moved = to_swap.id.split(",").map(Number);
+        if (w <= 4) await sleep(50);
     }
     shuffling = false;
 }
@@ -103,6 +104,7 @@ function is_solved() {
     }
 
     end = Date.now()
+    if (reset) shuffle();
     return true;
 }
 
@@ -128,6 +130,7 @@ for (let i = 0; i < w * h - 1; i++) {
 
 shuffle();
 
+let reset = false;
 let hidden = false;
 document.onkeydown = (e) => {
     if (e.key.toLowerCase() === "b") {
@@ -139,8 +142,10 @@ document.onkeydown = (e) => {
             }
         } else {
             for (let sq of document.querySelectorAll(".square")) {
-                color_el (sq);
+                color_el(sq);
             }
         }
+    } else if (e.key.toLowerCase() === "r") {
+        reset = !reset;
     }
 }
