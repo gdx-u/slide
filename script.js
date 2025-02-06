@@ -128,9 +128,9 @@ for (let i = 0; i < w * h - 1; i++) {
     document.body.appendChild(square(i % w, Math.floor(i / w), i + 1))
 }
 
+let reset = false;
 shuffle();
 
-let reset = false;
 let hidden = false;
 document.onkeydown = (e) => {
     if (e.key.toLowerCase() === "b") {
