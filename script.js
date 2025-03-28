@@ -108,8 +108,8 @@ function is_solved() {
     return true;
 }
 
-let w = Number(localStorage.getItem("size")) || 3;
-let h = w + 1;
+let w = Number(localStorage.getItem("size-x")) || 3;
+let h = Number(localStorage.getItem("size-y")) || 3;
 
 let max = String(w * h - 1).length;
 
