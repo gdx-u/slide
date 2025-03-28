@@ -109,7 +109,7 @@ function is_solved() {
 }
 
 let w = Number(localStorage.getItem("size")) || 3;
-let h = w;
+let h = w + 1;
 
 let max = String(w * h - 1).length;
 
